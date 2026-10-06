@@ -1,2 +1,4 @@
 Django
 whitenoise
+mssql-django>=1.4
+pyodbc>=5.0

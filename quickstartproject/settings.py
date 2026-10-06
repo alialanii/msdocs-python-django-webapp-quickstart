@@ -78,12 +78,23 @@ WSGI_APPLICATION = 'quickstartproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+import os
+
+# نستخدم متغيرات البيئة (Environment Variables) لحماية معلومات السيرفر السرية
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'mssql',
+        'NAME': os.environ.get('DB_NAME', 'اسم_قاعدة_البيانات_المحلية'),
+        'USER': os.environ.get('DB_USER', 'اسم_المستخدم'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'كلمة_المرور'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'), # سيتغير إلى رابط Azure SQL لاحقاً
+        'PORT': os.environ.get('DB_PORT', '1433'),
+        'OPTIONS': {
+            'driver': 'ODBC Driver 18 for SQL Server', # التعريف القياسي المدعوم في سيرفرات Azure
+        },
     }
 }
+
 
 
 # Password validation
